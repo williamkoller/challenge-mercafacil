@@ -20,13 +20,13 @@ services:
     image: postgres:latest
     container_name: postgres-varejao
     environment:
-      POSTGRES_HOST: ${DB_HOST}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASS}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST: ${DATABASE_HOST}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
       PG_DATA: /var/lib/postgresql/data/pgdata
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DATABASE_PORT}:${DATABASE_PORT}
     networks:
       - api-varejao-net
     volumes:
