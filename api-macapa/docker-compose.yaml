@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  api-macapa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-macapa
+    depends_on:
+      - mysql-macapa
+    entrypoint: sh -c 'yarn install --frozen-lockfile && yarn start:dev'
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - api-macapa-net
+
+  mysql-macapa:
+    image: mysql
+    container_name: mysql-macapa
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ROOT_HOST: ${DATABASE_HOST}
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql-macapa-data:/var/lib/mysql
+    networks:
+      - api-macapa-net
+
+networks:
+  api-macapa-net:
+
+volumes:
+  mysql-macapa-data:
