@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  node-api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-api-gateway
+    entrypoint: sh -c 'yarn install --frozen-lockfile && yarn start:dev'
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - node-api-gateway-net
+
+networks:
+  node-api-gateway-net:
