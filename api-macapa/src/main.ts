@@ -6,7 +6,7 @@ import { HttpExceptionFilter } from './shared/filters/http-all-exception.filter'
 import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
-  const logger = new Logger('API Varejao');
+  const logger = new Logger('API Macapa');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
