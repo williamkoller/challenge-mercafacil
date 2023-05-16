@@ -13,7 +13,7 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls: [process.env.RMQ_URL],
-        queue: process.env.RMQ_NAME,
+        queue: process.env.RMQ_QUEUE_CONTACT,
         queueOptions: {
           durable: false,
         },

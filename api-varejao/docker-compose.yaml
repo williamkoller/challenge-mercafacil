@@ -19,6 +19,7 @@ services:
   postgres-varejao:
     image: postgres:latest
     container_name: postgres-varejao
+    restart: always
     environment:
       POSTGRES_HOST: ${DATABASE_HOST}
       POSTGRES_USER: ${DATABASE_USER}
