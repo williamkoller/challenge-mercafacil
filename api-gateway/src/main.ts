@@ -3,11 +3,13 @@ import { AppModule } from './app.module';
 import { LoggingInterceptor } from './shared/interceptors/logging.interceptor';
 import { HttpAllExceptionFilter } from './shared/filters/http-all-exception.filter';
 import { ConfigService } from '@nestjs/config';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const logger = new Logger('API Gateway');
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalFilters(new HttpAllExceptionFilter());
 

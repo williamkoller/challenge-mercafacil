@@ -15,7 +15,21 @@ export class ClientProxyProvider {
       transport: Transport.RMQ,
       options: {
         urls: [this.cfService.get<string>('RMQ_URL')],
-        queue: this.cfService.get<string>('RMQ_QUEUE'),
+        queue: this.cfService.get<string>('RMQ_QUEUE_USER'),
+        queueOptions: {
+          durable: false,
+        },
+        noAck: false,
+      },
+    });
+  }
+
+  handleContact(): ClientProxy {
+    return ClientProxyFactory.create({
+      transport: Transport.RMQ,
+      options: {
+        urls: [this.cfService.get<string>('RMQ_URL')],
+        queue: this.cfService.get<string>('RMQ_QUEUE_CONTACT'),
         queueOptions: {
           durable: false,
         },
