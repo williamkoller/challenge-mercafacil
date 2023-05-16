@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  api-varejao:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-varejao
+    depends_on:
+      - postgres-varejao
+    entrypoint: sh -c 'yarn install --frozen-lockfile && yarn start:dev'
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - api-varejao-net
+
+  postgres-varejao:
+    image: postgres:latest
+    container_name: postgres-varejao
+    environment:
+      POSTGRES_HOST: ${DB_HOST}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_DB: ${DB_NAME}
+      PG_DATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    networks:
+      - api-varejao-net
+    volumes:
+      - postgres-varejao-data:/var/lib/postgresql/data
+
+networks:
+  api-varejao-net:
+
+volumes:
+  postgres-varejao-data:
